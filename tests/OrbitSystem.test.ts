@@ -30,13 +30,12 @@ describe('OrbitSystem', () => {
     expect(world.rocket.y).toBeCloseTo(1000 + 200 + GameConfig.ROCKET_ORBIT_OFFSET, 3);
   });
 
-  it('rotates attached items with the planet and detects planet fade expiration', () => {
+  it('rotates attached items with the planet and allows unlimited orbiting', () => {
     const world = new GameWorld();
     world.resetForNewRun();
 
     const planet = world.planets[0];
     planet.rotationSpeedRad = degToRad(180);
-    planet.startFadeOut(1.0);
 
     const point = new PointItem(50, planet.id, 0, planet.radius + 65);
     world.attachments.push(point);
@@ -47,7 +46,7 @@ describe('OrbitSystem', () => {
     expect(point.x).toBeCloseTo(planet.x, 3);
     expect(point.y).toBeCloseTo(planet.y + (planet.radius + 65), 3);
 
-    const res2 = orbit.update(world, 0.45);
-    expect(res2.pinnedPlanetExpired).toBe(true);
+    const res2 = orbit.update(world, 10.0);
+    expect(res2.pinnedPlanetExpired).toBe(false);
   });
 });

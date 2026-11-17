@@ -21,13 +21,13 @@ describe('DifficultySystem & SpawnSystem', () => {
     const difficulty = new DifficultySystem();
 
     for (let i = 0; i < 100; i++) {
-      difficulty.onPlanetLanded(world, world.planets[1]);
+      difficulty.onPlanetLanded(world);
     }
 
     expect(world.score).toBe(100);
     expect(world.difficultyDeg).toBe(GameConfig.MAX_DIFFICULTY_DEG);
     expect(world.rocket.speed).toBe(GameConfig.ROCKET_MAX_SPEED);
-    expect(world.planets[1].isFadingOut).toBe(true);
+    expect(world.planets[1].isFadingOut).toBe(false);
   });
 
   it('spawns next planet above the rocket and cleans up passed planets', () => {

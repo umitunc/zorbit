@@ -24,11 +24,6 @@ export class OrbitSystem {
         const orbitDistance = hostPlanet.radius + GameConfig.ROCKET_ORBIT_OFFSET;
         world.rocket.x = hostPlanet.x + Math.cos(world.rocket.orbitAngleRad) * orbitDistance;
         world.rocket.y = hostPlanet.y + Math.sin(world.rocket.orbitAngleRad) * orbitDistance;
-
-        if (hostPlanet.active && hostPlanet.opacity <= GameConfig.PLANET_EXPIRE_OPACITY) {
-          hostPlanet.active = false;
-          pinnedPlanetExpired = true;
-        }
       }
     }
 

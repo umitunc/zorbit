@@ -184,7 +184,7 @@ export class GameEngine {
     this.world.flightTimerSec = 0;
 
     this.particleSystem.spawnBurst(this.world, this.world.rocket.x, this.world.rocket.y, 14);
-    this.difficultySystem.onPlanetLanded(this.world, planet);
+    this.difficultySystem.onPlanetLanded(this.world);
     this.spawnSystem.spawnNextPlanet(this.world);
 
     this.callbacks.onScoreChange?.(this.world.score, this.world.bestScore);
