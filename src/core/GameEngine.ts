@@ -94,6 +94,11 @@ export class GameEngine {
   }
 
   public handleLaunchIntent(): void {
+    if (this.world.phase === 'gameover') {
+      this.gameOverDelaySec = 0;
+      this.setPhase('menu');
+      return;
+    }
     if (this.world.phase !== 'playing') {
       return;
     }

@@ -180,6 +180,26 @@ export class UIManager {
       if (e.key === 'Escape') {
         this.leaderboardModalEl.classList.add('hidden');
         this.usernameModalEl.classList.add('hidden');
+        return;
+      }
+
+      if (e.repeat) {
+        return;
+      }
+
+      const isMenuVisible = !this.menuEl.classList.contains('hidden');
+      const noModalOpen =
+        this.leaderboardModalEl.classList.contains('hidden') &&
+        this.usernameModalEl.classList.contains('hidden');
+
+      if (
+        isMenuVisible &&
+        noModalOpen &&
+        (e.code === 'Space' || e.code === 'Enter' || e.code === 'Tab' || e.code === 'ArrowUp')
+      ) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        this.onStartClick();
       }
     });
   }

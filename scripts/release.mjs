@@ -137,7 +137,8 @@ function main() {
   logStep('4. Web Deploy (zorbit.truncgil.com)');
   if (env.DEPLOY_SSH_HOST && env.DEPLOY_WEB_DIR) {
     run(`ssh ${env.DEPLOY_SSH_HOST} "mkdir -p ${env.DEPLOY_WEB_DIR}"`);
-    run(`scp -r dist/* ${env.DEPLOY_SSH_HOST}:${env.DEPLOY_WEB_DIR}/`);
+    run(`scp -O -r dist/assets dist/index.html ${env.DEPLOY_SSH_HOST}:${env.DEPLOY_WEB_DIR}/`);
+    run(`ssh ${env.DEPLOY_SSH_HOST} "chown -R truncgil:truncgil ${env.DEPLOY_WEB_DIR}"`);
   } else {
     console.log('Skipped: DEPLOY_SSH_HOST / DEPLOY_WEB_DIR not set in .env.release');
   }

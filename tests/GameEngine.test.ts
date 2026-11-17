@@ -64,7 +64,7 @@ describe('GameEngine', () => {
     // Aim away from next planet by launching immediately into empty space
     engine.world.planets = [engine.world.planets[1]]; // remove target so it misses
     mocks.triggerLaunch();
-    for (let i = 0; i < 160; i++) {
+    for (let i = 0; i < 16; i++) {
       engine.step(0.02);
     }
     expect(engine.world.phase).toBe('gameover');
@@ -73,10 +73,21 @@ describe('GameEngine', () => {
     expect(engine.world.rocket.opacity).toBeLessThan(1);
     expect(engine.world.rocket.opacity).toBeGreaterThan(0);
 
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 25; i++) {
       engine.step(0.02);
     }
     expect(engine.world.rocket.opacity).toBe(0);
+    expect(engine.world.phase).toBe('menu');
+
+    // Also verify tap/space during gameover immediately returns to menu
+    engine.startNewGame();
+    engine.world.planets = [engine.world.planets[0]];
+    mocks.triggerLaunch();
+    for (let i = 0; i < 16; i++) {
+      engine.step(0.02);
+    }
+    expect(engine.world.phase).toBe('gameover');
+    mocks.triggerLaunch();
     expect(engine.world.phase).toBe('menu');
   });
 });
