@@ -49,8 +49,8 @@ export const GameConfig = {
 
   // Camera
   CAMERA_Y_OFFSET: -400,
-  CAMERA_MIN_ZOOM: 0.7,
-  CAMERA_MAX_ZOOM: 1.4,
+  CAMERA_MIN_ZOOM: 0.88,
+  CAMERA_MAX_ZOOM: 1.45,
   CAMERA_ZOOM_STEP_PER_SEC: 1.0, // 0.01 per 0.01s
 
   // Game Over & Intro
