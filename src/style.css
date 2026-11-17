@@ -1,0 +1,162 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #070913;
+  font-family: 'Changa', sans-serif;
+  color: #ffffff;
+  touch-action: none;
+}
+
+#game-canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: radial-gradient(circle at center, rgba(20, 26, 48, 0.85), rgba(7, 9, 19, 0.96));
+  z-index: 10;
+  padding: 24px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.dev-logo {
+  max-width: 280px;
+  animation: fadePulse 1.4s ease-in-out infinite alternate;
+}
+
+.game-logo {
+  max-width: min(360px, 75vw);
+  margin-bottom: 8px;
+}
+
+.score-board {
+  display: flex;
+  gap: 48px;
+  text-align: center;
+}
+
+.score-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.score-block .label {
+  font-size: 16px;
+  letter-spacing: 2px;
+  color: #e9827b;
+}
+
+.score-block .value {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.1;
+}
+
+.score-block .value.new-best {
+  color: #ffd166;
+  animation: flashBest 0.35s ease-in-out 4;
+}
+
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.icon-btn:hover {
+  transform: scale(1.06);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
+}
+
+.start-btn img {
+  width: min(210px, 46vw);
+  height: auto;
+}
+
+.menu-actions {
+  display: flex;
+  gap: 28px;
+  margin-top: 8px;
+}
+
+.small-btn img {
+  width: 64px;
+  height: 64px;
+}
+
+.small-btn.muted {
+  opacity: 0.4;
+}
+
+.hud {
+  position: fixed;
+  top: 24px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+  padding: 0 20px;
+}
+
+.hud-score {
+  font-size: 56px;
+  font-weight: 700;
+  text-align: center;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+}
+
+.hud-score.hint {
+  font-size: 22px;
+  font-weight: 400;
+  color: #e9827b;
+  max-width: 420px;
+}
+
+@keyframes fadePulse {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes flashBest {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.25;
+  }
+}

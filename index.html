@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>Zorbit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Changa:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <div id="screen-loading" class="overlay">
+        <img src="/assets/images/dev-sheet0.png" alt="Trunçgil" class="dev-logo" />
+      </div>
+
+      <div id="screen-menu" class="overlay hidden">
+        <img src="/assets/images/logo-sheet0.png" alt="Zorbit" class="game-logo" />
+
+        <div class="score-board">
+          <div class="score-block">
+            <span class="label">SKOR</span>
+            <span id="menu-score" class="value">0</span>
+          </div>
+          <div class="score-block">
+            <span class="label">EN İYİ</span>
+            <span id="menu-best" class="value">0</span>
+          </div>
+        </div>
+
+        <button id="btn-start" class="icon-btn start-btn" aria-label="Oyunu Başlat">
+          <img src="/assets/images/buttonstart-sheet0.png" alt="Başlat" />
+        </button>
+
+        <div class="menu-actions">
+          <button id="btn-sound" class="icon-btn small-btn" aria-label="Sesi Aç/Kapat">
+            <img src="/assets/images/buttonsound-sheet0.png" alt="Ses" />
+          </button>
+          <button id="btn-fullscreen" class="icon-btn small-btn" aria-label="Tam Ekran">
+            <img src="/assets/images/buttonscreen-sheet0.png" alt="Tam Ekran" />
+          </button>
+        </div>
+      </div>
+
+      <div id="screen-hud" class="hud hidden">
+        <div id="hud-score" class="hud-score"></div>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
