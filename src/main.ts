@@ -3,8 +3,7 @@ import { GameConfig } from './core/config/GameConfig';
 import { GameEngine } from './core/GameEngine';
 import { WebAudioPlayer } from './infrastructure/audio/WebAudioPlayer';
 import { BrowserInputProvider } from './infrastructure/input/BrowserInputProvider';
-import { AssetLoader } from './infrastructure/render/AssetLoader';
-import { CanvasRenderer } from './infrastructure/render/CanvasRenderer';
+import { createGameRenderer } from './infrastructure/render/RendererFactory';
 import { LocalStorageScoreRepository } from './infrastructure/storage/LocalStorageScoreRepository';
 import { UIManager } from './ui/UIManager';
 
@@ -18,13 +17,20 @@ async function bootstrap(): Promise<void> {
     throw new Error('Missing #game-canvas element');
   }
 
-  const assetLoader = new AssetLoader();
-  const [images] = await Promise.all([
-    assetLoader.loadImages(),
+  const preloaderBar = document.getElementById('preloader-bar');
+  const updatePreloader = (progress: number) => {
+    if (preloaderBar) {
+      const pct = Math.max(12, Math.min(100, Math.round(progress * 100)));
+      preloaderBar.style.width = `${pct}%`;
+    }
+  };
+
+  const [renderer] = await Promise.all([
+    createGameRenderer(canvas, updatePreloader),
     wait(GameConfig.INTRO_SPLASH_DURATION_MS),
   ]);
+  updatePreloader(1);
 
-  const renderer = new CanvasRenderer(canvas, images);
   const audio = new WebAudioPlayer();
   const input = new BrowserInputProvider(canvas);
   const scoreRepository = new LocalStorageScoreRepository();
