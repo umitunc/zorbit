@@ -53,8 +53,10 @@ export const GameConfig = {
   CAMERA_MAX_ZOOM: 1.4,
   CAMERA_ZOOM_STEP_PER_SEC: 1.0, // 0.01 per 0.01s
 
-  // Game Over timeout in space
+  // Game Over & Intro
   FLIGHT_TIMEOUT_SEC: 3.0,
+  ROCKET_FADE_DURATION_SEC: 0.65,
+  INTRO_SPLASH_DURATION_MS: 1900,
 
   // Effects
   BG_STAR_SPAWN_INTERVAL_SEC: 0.1,

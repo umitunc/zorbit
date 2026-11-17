@@ -1,4 +1,5 @@
 import './style.css';
+import { GameConfig } from './core/config/GameConfig';
 import { GameEngine } from './core/GameEngine';
 import { WebAudioPlayer } from './infrastructure/audio/WebAudioPlayer';
 import { BrowserInputProvider } from './infrastructure/input/BrowserInputProvider';
@@ -7,6 +8,10 @@ import { CanvasRenderer } from './infrastructure/render/CanvasRenderer';
 import { LocalStorageScoreRepository } from './infrastructure/storage/LocalStorageScoreRepository';
 import { UIManager } from './ui/UIManager';
 
+function wait(ms: number): Promise<void> {
+  return new Promise((resolve) => window.setTimeout(resolve, ms));
+}
+
 async function bootstrap(): Promise<void> {
   const canvas = document.getElementById('game-canvas') as HTMLCanvasElement | null;
   if (!canvas) {
@@ -14,7 +19,10 @@ async function bootstrap(): Promise<void> {
   }
 
   const assetLoader = new AssetLoader();
-  const images = await assetLoader.loadImages();
+  const [images] = await Promise.all([
+    assetLoader.loadImages(),
+    wait(GameConfig.INTRO_SPLASH_DURATION_MS),
+  ]);
 
   const renderer = new CanvasRenderer(canvas, images);
   const audio = new WebAudioPlayer();

@@ -100,9 +100,13 @@ export class CanvasRenderer implements IRenderer {
   }
 
   private drawRocket(world: GameWorld): void {
-    const ctx = this.ctx;
     const rocket = world.rocket;
+    if (rocket.opacity <= 0) {
+      return;
+    }
+    const ctx = this.ctx;
     ctx.save();
+    ctx.globalAlpha = rocket.opacity;
     ctx.translate(rocket.x, rocket.y);
     ctx.rotate(rocket.angleRad);
     ctx.drawImage(

@@ -114,6 +114,7 @@ export class GameEngine {
 
   public step(dt: number): void {
     if (this.world.phase === 'gameover') {
+      this.world.rocket.updateFade(dt);
       this.particleSystem.update(this.world, dt);
       this.cameraSystem.update(this.world, dt);
       this.gameOverDelaySec -= dt;
@@ -188,7 +189,8 @@ export class GameEngine {
     this.deps.audio.play('lose');
     this.world.camera.shakeIntensity = 24;
     this.particleSystem.spawnBurst(this.world, this.world.rocket.x, this.world.rocket.y, 20);
-    this.gameOverDelaySec = 0.65;
+    this.world.rocket.startFadeOut(GameConfig.ROCKET_FADE_DURATION_SEC);
+    this.gameOverDelaySec = GameConfig.ROCKET_FADE_DURATION_SEC;
 
     if (this.world.score > this.world.bestScore) {
       this.world.bestScore = this.world.score;

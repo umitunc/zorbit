@@ -69,5 +69,14 @@ describe('GameEngine', () => {
     }
     expect(engine.world.phase).toBe('gameover');
     expect(mocks.audio.play).toHaveBeenCalledWith('lose');
+    expect(engine.world.rocket.isFadingOut).toBe(true);
+    expect(engine.world.rocket.opacity).toBeLessThan(1);
+    expect(engine.world.rocket.opacity).toBeGreaterThan(0);
+
+    for (let i = 0; i < 40; i++) {
+      engine.step(0.02);
+    }
+    expect(engine.world.rocket.opacity).toBe(0);
+    expect(engine.world.phase).toBe('menu');
   });
 });

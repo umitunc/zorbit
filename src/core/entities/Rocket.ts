@@ -18,6 +18,9 @@ export class Rocket {
   public pinnedPlanetId: number | null;
   public orbitAngleRad: number;
   public isFlying: boolean;
+  public opacity: number = 1;
+  public isFadingOut: boolean = false;
+  public fadeDurationSec: number = GameConfig.ROCKET_FADE_DURATION_SEC;
 
   constructor(options: RocketOptions) {
     this.x = options.x;
@@ -46,6 +49,18 @@ export class Rocket {
     this.isFlying = false;
     this.orbitAngleRad = orbitAngleRad;
     this.angleRad = orbitAngleRad;
+  }
+
+  public startFadeOut(durationSec: number = GameConfig.ROCKET_FADE_DURATION_SEC): void {
+    this.isFadingOut = true;
+    this.fadeDurationSec = durationSec;
+  }
+
+  public updateFade(dt: number): void {
+    if (!this.isFadingOut || this.fadeDurationSec <= 0) {
+      return;
+    }
+    this.opacity = Math.max(0, this.opacity - dt / this.fadeDurationSec);
   }
 
   public getBounds(): CircleBounds {
