@@ -135,7 +135,24 @@ function main() {
   if (!isDryRun) mkdirSync(releaseOutDir, { recursive: true });
 
   logStep('4. Web Deploy (zorbit.truncgil.com)');
-  if (env.DEPLOY_SSH_HOST && env.DEPLOY_WEB_DIR) {
+  if (env.DEPLOY_SSH_HOST && env.DEPLOY_REPO_DIR && env.DEPLOY_WEB_DIR) {
+    const gitUrl = env.DEPLOY_GIT_URL || 'https://github.com/umitunc/zorbit.git';
+    const targetRef = skipPush ? 'main' : tagName;
+    const remoteCmd = [
+      `if [ ! -d "${env.DEPLOY_REPO_DIR}/.git" ]; then mkdir -p "$(dirname "${env.DEPLOY_REPO_DIR}")" && git clone "${gitUrl}" "${env.DEPLOY_REPO_DIR}"; fi`,
+      `cd "${env.DEPLOY_REPO_DIR}"`,
+      `git fetch --tags origin`,
+      `git checkout "${targetRef}"`,
+      `if [ "${targetRef}" = "main" ]; then git pull origin main; fi`,
+      `npm ci`,
+      `npm run build`,
+      `mkdir -p "${env.DEPLOY_WEB_DIR}"`,
+      `rm -rf "${env.DEPLOY_WEB_DIR}/assets"`,
+      `cp -r dist/* "${env.DEPLOY_WEB_DIR}/"`,
+      `chown -R truncgil:truncgil "${env.DEPLOY_WEB_DIR}"`,
+    ].join(' && ');
+    runArgs('ssh', [env.DEPLOY_SSH_HOST, remoteCmd]);
+  } else if (env.DEPLOY_SSH_HOST && env.DEPLOY_WEB_DIR) {
     run(`ssh ${env.DEPLOY_SSH_HOST} "mkdir -p ${env.DEPLOY_WEB_DIR}"`);
     run(`scp -O -r dist/assets dist/index.html ${env.DEPLOY_SSH_HOST}:${env.DEPLOY_WEB_DIR}/`);
     run(`ssh ${env.DEPLOY_SSH_HOST} "chown -R truncgil:truncgil ${env.DEPLOY_WEB_DIR}"`);
