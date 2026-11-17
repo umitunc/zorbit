@@ -17,19 +17,10 @@ async function bootstrap(): Promise<void> {
     throw new Error('Missing #game-canvas element');
   }
 
-  const preloaderBar = document.getElementById('preloader-bar');
-  const updatePreloader = (progress: number) => {
-    if (preloaderBar) {
-      const pct = Math.max(12, Math.min(100, Math.round(progress * 100)));
-      preloaderBar.style.width = `${pct}%`;
-    }
-  };
-
   const [renderer] = await Promise.all([
-    createGameRenderer(canvas, updatePreloader),
+    createGameRenderer(canvas),
     wait(GameConfig.INTRO_SPLASH_DURATION_MS),
   ]);
-  updatePreloader(1);
 
   const audio = new WebAudioPlayer();
   const input = new BrowserInputProvider(canvas);
