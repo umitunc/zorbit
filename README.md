@@ -1,8 +1,10 @@
+<p align="center">
+  <img src="public/assets/images/logo-sheet0.png" alt="Trunçgil Zorbit Logo" width="380" />
+</p>
+
 # Zorbit
 
 Dönen gezegenlerin yörüngesinden roketi doğru zamanlamayla bir sonraki gezegene fırlatarak ilerlenen, **TypeScript + HTML5 Canvas 2D + Vite** tabanlı 2D arcade oyunu.
-
-Eski Construct 2 sürümünün ([docs/old-version/zorbit.truncgil.com.tr](docs/old-version/zorbit.truncgil.com.tr)) mekanikleri incelenerek **SOLID prensiplerine** uygun, modüler ve test edilebilir bir mimariyle yeniden yazılmıştır. Detaylı mimari plan için [docs/implementation-plan.md](docs/implementation-plan.md) dosyasına bakabilirsiniz.
 
 ## Özellikler (Faz 1)
 
@@ -20,6 +22,33 @@ Eski Construct 2 sürümünün ([docs/old-version/zorbit.truncgil.com.tr](docs/o
 - `src/infrastructure/` — Tarayıcı adaptörleri (`CanvasRenderer`, `WebAudioPlayer`, `BrowserInputProvider`, `LocalStorageScoreRepository`).
 - `src/ui/` — Menü, HUD ve kontrol arayüzü (`UIManager`).
 - `tests/` — Çekirdek sistemler için `Vitest` birim testleri.
+
+## Veri Yapısı (Data Structure)
+
+Oyun çekirdeğindeki tüm durum ve varlıklar `src/core/state/` ve `src/core/entities/` altında tanımlanır:
+
+### `GameWorld` (`src/core/state/GameWorld.ts`)
+Oyunun tek doğruluk kaynağı (single source of truth) olan ana durum kapsayıcısıdır:
+- `phase: GamePhase` — `'loading' | 'menu' | 'playing' | 'gameover'`
+- `score: number` / `bestScore: number` / `isNewBest: boolean` — Anlık skor, en yüksek skor ve rekor bayrağı
+- `difficultyDeg: number` — Gezegen dönüş hızı zorluk seviyesi (`80°/s → 210°/s`)
+- `flightTimerSec: number` — Uzayda boşlukta geçirilen süre (`3.0s` aşılırsa oyun biter)
+- `nextEntityId: number` — Artan varlık kimliği sayacı
+- `planets: Planet[]` — Sahnedeki gezegenler
+- `attachments: PlanetAttachment[]` — Gezegenlere bağlı ödül ve engeller
+- `particles: Particle[]` — Görsel efekt parçacıkları
+- `rocket: Rocket` — Oyuncu roketi
+- `camera: CameraState` — Kamera durumu (`{ x, y, zoom, shakeIntensity }`)
+
+### Temel Varlıklar (`src/core/entities/`)
+- **`Planet`**: `id`, `x`, `y`, `radius`, `angleRad`, `rotationSpeedRad`, `active`, `opacity`, `isFadingOut`, `fadeDurationSec`
+- **`Rocket`**: `x`, `y`, `angleRad`, `speed`, `pinnedPlanetId` (`number | null`), `orbitAngleRad`, `isFlying`
+- **`PlanetAttachment`** *(soyut sınıf)* → **`PointItem`** (`kind: 'point'`, `+3` puan) ve **`EnemyItem`** (`kind: 'enemy'`, `-3` puan): `id`, `planetId`, `localAngleOffsetRad`, `orbitDistance`, `radius`, `x`, `y`, `angleRad`, `spinSpeedRad`, `collected`
+- **`Particle`**: `kind` (`'star' | 'trail' | 'burst' | 'scorePopup'`), `x`, `y`, `vx`, `vy`, `scale`, `opacity`, `ageSec`, `lifetimeSec`, `angleRad`, `frame?` (`0 | 1`)
+- **`Vector2` & `CircleBounds`**: Konum (`{ x, y }`) ve dairesel çarpışma sınırı (`{ x, y, radius }`)
+
+### Kalıcı Veri (`src/infrastructure/storage/`)
+- **`LocalStorageScoreRepository`**: En yüksek skoru tarayıcı `localStorage` üzerinde `score_zorbit` anahtarı ile tam sayı olarak saklar.
 
 ## Kurulum ve Çalıştırma
 
