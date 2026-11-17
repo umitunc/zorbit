@@ -1,6 +1,7 @@
 {
   "name": "zorbit",
-  "version": "2.0.0",
+  "version": "2.0.1",
+  "versionCode": 2,
   "private": true,
   "type": "module",
   "scripts": {
@@ -8,7 +9,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "release": "node scripts/release.mjs"
   },
   "devDependencies": {
     "typescript": "^5.7.2",
