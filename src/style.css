@@ -37,6 +37,45 @@ body,
   padding: min(6vw, 3.5vh);
 }
 
+#screen-menu:not(.hidden) {
+  animation: menuOverlayIn 0.38s ease-out forwards;
+}
+
+#screen-menu:not(.hidden) .player-badge,
+#screen-menu:not(.hidden) .game-logo,
+#screen-menu:not(.hidden) .score-board,
+#screen-menu:not(.hidden) .start-btn,
+#screen-menu:not(.hidden) .menu-actions {
+  opacity: 0;
+  animation: menuItemIn 0.42s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+#screen-menu:not(.hidden) .player-badge { animation-delay: 0.04s; }
+#screen-menu:not(.hidden) .game-logo { animation-delay: 0.08s; }
+#screen-menu:not(.hidden) .score-board { animation-delay: 0.14s; }
+#screen-menu:not(.hidden) .start-btn { animation-delay: 0.2s; }
+#screen-menu:not(.hidden) .menu-actions { animation-delay: 0.26s; }
+
+@keyframes menuOverlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes menuItemIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 .hidden {
   display: none !important;
 }
