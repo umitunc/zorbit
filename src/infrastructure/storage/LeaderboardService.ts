@@ -57,6 +57,8 @@ export function getIsoWeekId(date: Date = new Date()): string {
 }
 
 export class LeaderboardService {
+  private activeSession: { sessionId: string; nonce: string; startedAt: number } | null = null;
+
   public getPlayerId(): string {
     let id = localStorage.getItem(PLAYER_ID_KEY);
     if (!id) {
@@ -112,12 +114,41 @@ export class LeaderboardService {
     return { ok: true, username: trimmed };
   }
 
+  public async startSession(): Promise<void> {
+    this.activeSession = null;
+    const playerId = this.getPlayerId();
+    try {
+      const res = await this.fetchWithTimeout(`${AppConfig.API_BASE_URL}/sessions/start`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ playerId }),
+      });
+      if (!res.ok) return;
+      const data = (await res.json()) as { sessionId?: string; nonce?: string };
+      if (data.sessionId && data.nonce) {
+        this.activeSession = {
+          sessionId: data.sessionId,
+          nonce: data.nonce,
+          startedAt: Date.now(),
+        };
+      }
+    } catch {
+      // Offline mode
+    }
+  }
+
   public async submitScore(score: number): Promise<void> {
     if (score <= 0) {
       return;
     }
     const playerId = this.getPlayerId();
     const username = this.getUsername();
+    const session = this.activeSession;
+    this.activeSession = null;
+    if (!session) {
+      return;
+    }
+
     try {
       await this.fetchWithTimeout(`${AppConfig.API_BASE_URL}/scores`, {
         method: 'POST',
@@ -126,9 +157,10 @@ export class LeaderboardService {
           playerId,
           username,
           score: Math.floor(score),
-          weekId: getIsoWeekId(),
+          sessionId: session.sessionId,
+          nonce: session.nonce,
+          durationMs: Date.now() - session.startedAt,
           appVersion: AppConfig.VERSION,
-          versionCode: AppConfig.VERSION_CODE,
         }),
       });
     } catch {

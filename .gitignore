@@ -33,3 +33,6 @@ docs/old-version/
 # Local release secrets & build artifacts
 .env.release
 releases/
+server/.env
+server/node_modules/
+server/dist/

@@ -150,6 +150,7 @@ function main() {
       `rm -rf "${env.DEPLOY_WEB_DIR}/assets"`,
       `cp -r dist/* "${env.DEPLOY_WEB_DIR}/"`,
       `chown -R truncgil:truncgil "${env.DEPLOY_WEB_DIR}"`,
+      `if [ -f "${env.DEPLOY_REPO_DIR}/server/docker-compose.yml" ]; then cd "${env.DEPLOY_REPO_DIR}/server" && docker compose up -d --build; fi`,
     ].join(' && ');
     runArgs('ssh', [env.DEPLOY_SSH_HOST, remoteCmd]);
   } else if (env.DEPLOY_SSH_HOST && env.DEPLOY_WEB_DIR) {

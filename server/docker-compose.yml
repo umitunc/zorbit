@@ -1,0 +1,47 @@
+services:
+  zorbit-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-zorbit}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-zorbit_change_me}
+      POSTGRES_DB: ${POSTGRES_DB:-zorbit}
+    volumes:
+      - zorbit_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-zorbit} -d ${POSTGRES_DB:-zorbit}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  zorbit-redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - zorbit_redis:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  zorbit-api:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:4100:4100"
+    environment:
+      PORT: 4100
+      DATABASE_URL: postgres://${POSTGRES_USER:-zorbit}:${POSTGRES_PASSWORD:-zorbit_change_me}@zorbit-db:5432/${POSTGRES_DB:-zorbit}
+      REDIS_URL: redis://zorbit-redis:6379
+    depends_on:
+      zorbit-db:
+        condition: service_healthy
+      zorbit-redis:
+        condition: service_healthy
+
+volumes:
+  zorbit_pgdata:
+  zorbit_redis:
+

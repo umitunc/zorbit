@@ -43,7 +43,9 @@ async function bootstrap(): Promise<void> {
     {
       onPhaseChange: (phase, world) => {
         ui.updatePhase(phase, world);
-        if (phase === 'gameover' && world.score > 0) {
+        if (phase === 'playing') {
+          void leaderboard.startSession();
+        } else if (phase === 'gameover' && world.score > 0) {
           void leaderboard.submitScore(world.score);
         }
       },
