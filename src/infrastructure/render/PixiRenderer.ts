@@ -105,7 +105,7 @@ export class PixiRenderer implements IRenderer {
 
     const scaleX = this.viewportWidth / GameConfig.VIRTUAL_WIDTH;
     const scaleY = this.viewportHeight / GameConfig.VIRTUAL_HEIGHT;
-    const fitScale = Math.min(scaleX, scaleY);
+    const fitScale = Math.min(scaleX, scaleY * 1.25);
     const totalScale = fitScale * world.camera.zoom;
 
     const shakeX =

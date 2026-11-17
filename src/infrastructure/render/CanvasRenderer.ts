@@ -44,7 +44,7 @@ export class CanvasRenderer implements IRenderer {
     // Scale virtual 1080x1920 to current viewport
     const scaleX = this.viewportWidth / GameConfig.VIRTUAL_WIDTH;
     const scaleY = this.viewportHeight / GameConfig.VIRTUAL_HEIGHT;
-    const fitScale = Math.min(scaleX, scaleY);
+    const fitScale = Math.min(scaleX, scaleY * 1.25);
 
     const shakeX =
       world.camera.shakeIntensity > 0
