@@ -4,6 +4,7 @@ import { GameEngine } from './core/GameEngine';
 import { WebAudioPlayer } from './infrastructure/audio/WebAudioPlayer';
 import { BrowserInputProvider } from './infrastructure/input/BrowserInputProvider';
 import { createGameRenderer } from './infrastructure/render/RendererFactory';
+import { LeaderboardService } from './infrastructure/storage/LeaderboardService';
 import { LocalStorageScoreRepository } from './infrastructure/storage/LocalStorageScoreRepository';
 import { UIManager } from './ui/UIManager';
 
@@ -25,9 +26,10 @@ async function bootstrap(): Promise<void> {
   const audio = new WebAudioPlayer();
   const input = new BrowserInputProvider(canvas);
   const scoreRepository = new LocalStorageScoreRepository();
+  const leaderboard = new LeaderboardService();
 
   let engine: GameEngine;
-  const ui = new UIManager(audio, () => {
+  const ui = new UIManager(audio, leaderboard, () => {
     engine.startNewGame();
   });
 
@@ -39,7 +41,12 @@ async function bootstrap(): Promise<void> {
       scoreRepository,
     },
     {
-      onPhaseChange: (phase, world) => ui.updatePhase(phase, world),
+      onPhaseChange: (phase, world) => {
+        ui.updatePhase(phase, world);
+        if (phase === 'gameover' && world.score > 0) {
+          void leaderboard.submitScore(world.score);
+        }
+      },
       onScoreChange: (score) => ui.updateScore(score),
     }
   );

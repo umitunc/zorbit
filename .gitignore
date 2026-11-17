@@ -29,3 +29,7 @@ Thumbs.db
 
 # Legacy Construct 2 archive
 docs/old-version/
+
+# Local release secrets & build artifacts
+.env.release
+releases/

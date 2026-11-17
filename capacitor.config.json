@@ -1,0 +1,11 @@
+{
+  "appId": "com.truncgil.zorbit",
+  "appName": "Zorbit",
+  "webDir": "dist",
+  "server": {
+    "hostname": "zorbit.truncgil.com",
+    "androidScheme": "https",
+    "iosScheme": "https"
+  }
+}
+

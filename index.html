@@ -103,6 +103,11 @@
       </div>
 
       <div id="screen-menu" class="overlay hidden">
+        <button id="btn-player-name" class="player-badge" aria-label="Oyuncu Adını Değiştir">
+          <span id="player-name-text">ZorbitPlayer</span>
+          <span class="player-edit-icon">✎</span>
+        </button>
+
         <img src="/assets/images/logo-sheet0.png" alt="Zorbit" class="game-logo" />
 
         <div class="score-board">
@@ -127,6 +132,48 @@
           <button id="btn-fullscreen" class="icon-btn small-btn" aria-label="Tam Ekran">
             <img src="/assets/images/buttonscreen-sheet0.png" alt="Tam Ekran" />
           </button>
+          <button id="btn-leaderboard" class="icon-btn small-btn" aria-label="Haftanın Zorbitleri">
+            <img src="/assets/images/buttonmore-sheet0.png" alt="Skor Tablosu" />
+          </button>
+        </div>
+
+        <div id="app-version" class="app-version"></div>
+      </div>
+
+      <div id="modal-leaderboard" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+        <div class="modal-card">
+          <div class="modal-header">
+            <h2 class="modal-title">Skor Tablosu</h2>
+            <button id="btn-close-leaderboard" class="modal-close" aria-label="Kapat">✕</button>
+          </div>
+          <div class="modal-tabs">
+            <button id="tab-weekly" class="modal-tab active">Haftanın Zorbitleri</button>
+            <button id="tab-archive" class="modal-tab">Önceki Haftalar</button>
+          </div>
+          <div id="leaderboard-meta" class="leaderboard-meta"></div>
+          <div id="leaderboard-body" class="leaderboard-body"></div>
+        </div>
+      </div>
+
+      <div id="modal-username" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+        <div class="modal-card modal-card-sm">
+          <div class="modal-header">
+            <h2 class="modal-title">Oyuncu Adı</h2>
+            <button id="btn-close-username" class="modal-close" aria-label="Kapat">✕</button>
+          </div>
+          <p class="modal-desc">Liderlik tablosunda görünecek benzersiz adını belirle:</p>
+          <input
+            id="input-username"
+            class="username-input"
+            type="text"
+            maxlength="18"
+            placeholder="Oyuncu adın"
+            autocomplete="off"
+          />
+          <div id="username-error" class="username-error hidden"></div>
+          <div class="modal-actions">
+            <button id="btn-save-username" class="primary-btn">Kaydet</button>
+          </div>
         </div>
       </div>
 
