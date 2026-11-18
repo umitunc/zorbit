@@ -8,7 +8,7 @@
   <Identity
     Name="TruncgilTeknoloji.Zorbit"
     Publisher="CN=36E5CC36-2B19-4151-A2CF-66EF42CB6EBD"
-    Version="2.0.5.0" />
+    Version="2.0.6.0" />
 
   <Properties>
     <DisplayName>Zorbit</DisplayName>
