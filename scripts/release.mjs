@@ -1,5 +1,5 @@
 import { execSync, spawnSync } from 'node:child_process';
-import { copyFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import process from 'node:process';
 
@@ -86,6 +86,15 @@ function syncNativeVersions(nextVersion, nextCode) {
     if (!isDryRun) writeFileSync(tauriPath, `${JSON.stringify(tauri, null, 2)}\n`, 'utf8');
     console.log(`Synced Tauri tauri.conf.json -> ${nextVersion}`);
   }
+
+  // Windows MSIX AppxManifest.xml
+  const appxPath = path.join(ROOT, 'windows', 'AppxManifest.xml');
+  if (existsSync(appxPath)) {
+    let appx = readFileSync(appxPath, 'utf8');
+    appx = appx.replace(/(?<![A-Za-z])Version="\d+\.\d+\.\d+\.\d+"/, `Version="${nextVersion}.0"`);
+    if (!isDryRun) writeFileSync(appxPath, appx, 'utf8');
+    console.log(`Synced windows/AppxManifest.xml -> ${nextVersion}.0`);
+  }
 }
 
 function main() {
@@ -164,7 +173,22 @@ function main() {
   logStep('5. Android Google Play (.aab)');
   if (existsSync(path.join(ROOT, 'android'))) {
     run('npx cap sync android');
-    run('gradlew.bat bundleRelease', { cwd: path.join(ROOT, 'android') });
+    const jdkCandidates = [
+      'C:\\Program Files\\Microsoft\\jdk-21.0.13.21-hotspot',
+      'C:\\Program Files\\Microsoft\\jdk-17.0.18.8-hotspot',
+      'C:\\Program Files\\Android\\Android Studio\\jbr',
+    ];
+    const msBase = 'C:\\Program Files\\Microsoft';
+    if (existsSync(msBase)) {
+      for (const dir of readdirSync(msBase)) {
+        if (dir.startsWith('jdk-21')) {
+          jdkCandidates.unshift(path.join(msBase, dir));
+        }
+      }
+    }
+    const detectedJdk = jdkCandidates.find((p) => existsSync(path.join(p, 'bin', 'javac.exe')));
+    const androidEnv = detectedJdk ? { ...process.env, JAVA_HOME: detectedJdk } : process.env;
+    run('gradlew.bat bundleRelease', { cwd: path.join(ROOT, 'android'), env: androidEnv });
     const aabSrc = path.join(
       ROOT,
       'android',
@@ -194,8 +218,10 @@ function main() {
     }
   } else if (existsSync(path.join(ROOT, 'src-tauri'))) {
     run('npm run tauri build');
+  } else if (existsSync(path.join(ROOT, 'windows', 'AppxManifest.xml'))) {
+    run('powershell -ExecutionPolicy Bypass -File scripts/build-msix.ps1');
   } else {
-    console.log('Skipped: src-tauri/ or WINDOWS_MSIX_CMD not configured in .env.release');
+    console.log('Skipped: src-tauri/, windows/AppxManifest.xml or WINDOWS_MSIX_CMD not configured');
   }
 
   logStep('7. iOS TestFlight via SSH (MacBook)');

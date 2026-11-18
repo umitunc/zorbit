@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Zorbit</string>
+    <string name="title_activity_main">Zorbit</string>
+    <string name="package_name">com.truncgil.zorbit</string>
+    <string name="custom_url_scheme">com.truncgil.zorbit</string>
+</resources>

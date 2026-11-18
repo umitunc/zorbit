@@ -33,6 +33,10 @@ docs/old-version/
 # Local release secrets & build artifacts
 .env.release
 releases/
+build/
 server/.env
+*.jks
+*.keystore
+android/keystore.properties
 server/node_modules/
 server/dist/

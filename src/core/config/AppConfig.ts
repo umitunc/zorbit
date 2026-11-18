@@ -1,5 +1,5 @@
 export const AppConfig = {
-  APP_ID: 'com.truncgil.zorbit',
+  APP_ID: 'com.truncgil.zorbit.game',
   APP_NAME: 'Zorbit',
   WEB_ORIGIN: 'https://zorbit.truncgil.com',
   API_BASE_URL: import.meta.env.VITE_API_BASE_URL ?? 'https://zorbit.truncgil.com/api',
