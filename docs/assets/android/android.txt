@@ -1,0 +1,58 @@
+====================================================================
+ZORBIT - GOOGLE PLAY CONSOLE YENİ UYGULAMA KURULUM REHBERİ
+====================================================================
+Yeni Package ID : com.truncgil.zorbit.game
+Eski Package ID : com.truncgil.zorbit2.wear (Play Console'dan Unpublish / Yayından Kaldır önerilir)
+Mağaza Adı (ASO): Zorbit: Uzay Roket Oyunu  (25/30 karakter)
+                  veya kısa ad: Zorbit
+Kategori        : Oyun > Arcade (Game > Arcade)
+====================================================================
+
+1. YENİ UYGULAMA OLUŞTURMA
+--------------------------
+- Play Console > Tüm Uygulamalar > Uygulama Oluştur
+- Uygulama adı: Zorbit: Uzay Roket Oyunu
+- Varsayılan dil: Türkçe (tr-TR)
+- Uygulama veya oyun: Oyun
+- Ücretsiz veya ücretli: Ücretsiz
+
+2. İMZALAMA & AAB YÜKLEME (PLAY APP SIGNING)
+--------------------------------------------
+- İlk üretim/test sürümünü yüklerken "Google Play'in uygulama imzalama anahtarını yönetmesine izin ver (Play App Signing)" seçeneğini açık bırakın.
+- Yüklenecek paket: releases/v2.0.5/zorbit-v2.0.5-build6.aab
+  (Play Console yüklemesi için release keystore ile imzalanmış olmalıdır.)
+
+3. HEDEF KİTLE VE İÇERİK (TARGET AUDIENCE)
+-----------------------------------------
+- Hedef yaş grubu: 13-15, 16-17, 18 ve üzeri (13 yaş altı seçeneğini İŞARETLEMEYİN; aksi halde "Designed for Families" ek incelemesine girer).
+- Mağaza varlığı çocuklara hitap ediyor mu?: Hayır
+
+4. İÇERİK DERECELENDİRMESİ (IARC)
+---------------------------------
+- Kategori: Oyun
+- Şiddet / Kan / Korkutucu öğe / Cinsellik / Küfür / Kumar / Alkol-Tütün / Kullanıcılar arası sohbet / Konum paylaşımı / Uygulama içi satın alma: HEPSİ "Hayır (No)"
+- Beklenen sonuç: 3+ / PEGI 3 / Everyone
+
+5. VERİ GÜVENLİĞİ (DATA SAFETY) & GİZLİLİK POLİTİKASI
+-----------------------------------------------------
+- Uygulamanız gerekli kullanıcı verilerinden herhangi birini topluyor veya paylaşıyor mu?: Evet (Evet, yalnızca liderlik tablosu için)
+- Toplanan veriler:
+  1) Uygulama içi etkinlik / Diğer kullanıcı tarafından oluşturulan içerik (Oyuncu adı / takma ad + oyun skoru)
+  2) Cihaz veya diğer kimlikler (Anonim playerId UUID — cihaz eşleştirmesi ve skor kaydı için)
+- Veri aktarımı sırasında şifreleniyor mu?: Evet (HTTPS)
+- Kullanıcılar verilerinin silinmesini isteyebilir mi?: Evet (info@truncgil.com üzerinden talep edilebilir)
+- Üçüncü taraflarla paylaşılıyor mu?: Hayır
+- Veri toplama amacı: Uygulama işlevselliği (Haftanın Zorbitleri liderlik tablosu)
+- Gizlilik Politikası URL: https://zorbit.truncgil.com/privacy.html
+
+6. MAĞAZA GÖRSELLERİ & METİNLER
+-------------------------------
+- Uygulama simgesi (512x512): docs/assets/android/AppIcon-512x512.png
+- Özellik grafiği (1024x500): docs/assets/android/FeatureGraphic-1024x500.png
+- Başlık / Kısa & Uzun Açıklama (tr-TR, en-US): docs/assets/android/store-listings.txt
+
+7. ESKİ UYGULAMA (com.truncgil.zorbit2.wear)
+--------------------------------------------
+- Yeni uygulama yayına geçtikten sonra eski uygulamayı Play Console > Gelişmiş Ayarlar > Uygulama Kullanılabilirliği bölümünden "Yayından kaldırıldı (Unpublished)" yapmanız önerilir.
+====================================================================
+

@@ -1,0 +1,74 @@
+====================================================================
+ZORBIT - GOOGLE PLAY STORE LISTINGS (ASO / SEO UYUMLU)
+====================================================================
+Package Name    : com.truncgil.zorbit.game
+Publisher       : Trunçgil Teknoloji
+Web / Support   : https://zorbit.truncgil.com/ | info@truncgil.com
+Category        : Game > Arcade
+====================================================================
+
+--------------------------------------------------------------------
+1. TÜRKÇE (tr-TR)
+--------------------------------------------------------------------
+
+[App Name] (Max 30 karakter)
+Zorbit
+
+[Short Description] (Max 80 karakter)
+Dönen gezegenlerden roketini fırlat, yıldızları topla, haftalık zirveye çık!
+
+[Full Description] (Max 4000 karakter)
+Zorbit, dönen gezegenlerin yörüngesinde dönen roketini doğru zamanlamayla bir sonraki gezegene fırlatarak ilerlediğin, hızlı tempolu ve refleks odaklı bir 2D uzay arcade oyunudur.
+
+NASIL OYNANIR?
+Roketin gezegenin yörüngesinde sürekli döner. Ekrana dokunarak roketini ateşle ve bir sonraki gezegenin yörüngesine iniş yap. Yörüngede istediğin kadar dönerek en doğru açıyı bekle; ama boşluğa fırlama!
+
+ÖNE ÇIKAN ÖZELLİKLER
+• Tek Dokunuşla Akıcı Kontrol: Hızlı tepki veren, öğrenmesi kolay ama ustalaşması zor arcade oynanış.
+• Dinamik Zorluk Eğrisi: İlerledikçe gezegen dönüş hızları ve roket hızı artar.
+• Yıldızlar ve Engeller: +3 puanlık bonus yıldızları topla, -3 puanlık dönen engellerden kaçın.
+• Haftanın Zorbitleri: Benzersiz oyuncu adını belirle, canlı haftalık liderlik tablosunda yarış ve Önceki Haftalar şampiyonlarını gör.
+• Çevrimdışı Oynanış & Otomatik Senkronizasyon: İnternet yokken de oyna, rekorların cihazda saklansın ve bağlantı geldiğinde otomatik eşitlensin.
+• WebGL GPU Performansı: Akıcı kare hızı, dinamik kamera takibi ve parçacık patlamaları.
+
+[Release Notes] (v2.0.5)
+• WebGL grafik motoru ile daha akıcı performans.
+• Haftanın Zorbitleri canlı liderlik tablosu ve Önceki Haftalar arşivi.
+• Benzersiz oyuncu adı belirleme ve çevrimdışı skor senkronizasyonu.
+
+--------------------------------------------------------------------
+2. ENGLISH (en-US)
+--------------------------------------------------------------------
+
+[App Name] (Max 30 chars)
+Zorbit
+
+[Short Description] (Max 80 chars)
+Launch your rocket between spinning planets, grab stars & top the leaderboard!
+
+[Full Description] (Max 4000 chars)
+Zorbit is a fast-paced 2D space arcade game where you launch your rocket from spinning planet orbits and land safely on the next planet with precise timing.
+
+HOW TO PLAY
+Your rocket orbits continuously around each planet. Tap the screen at the right moment to fire your rocket toward the next planet. Take your time to line up the perfect angle—just don't drift into deep space!
+
+KEY FEATURES
+• One-Tap Arcade Controls: Instant, responsive gameplay that is easy to learn and challenging to master.
+• Dynamic Difficulty: Planet rotation and rocket speed scale up as your score climbs.
+• Bonus Stars & Hazards: Grab +3 point stars while avoiding -3 rotating obstacles.
+• Weekly Zorbits Leaderboard: Pick your unique player name, compete on the live weekly leaderboard, and check Past Weeks champions.
+• Offline Play & Auto-Sync: Play anywhere offline—your scores sync automatically as soon as you're back online.
+• Smooth WebGL Visuals: Crisp 60 FPS graphics, dynamic camera zoom, and particle bursts.
+
+[Release Notes] (v2.0.5)
+• Upgraded to WebGL rendering for smoother 60 FPS performance.
+• Added live Weekly Zorbits leaderboard and Past Weeks archive.
+• Added unique player usernames and automatic offline score sync.
+
+--------------------------------------------------------------------
+3. GÖRSEL DOSYALAR (docs/assets/android/)
+--------------------------------------------------------------------
+- App Icon (512x512)        : AppIcon-512x512.png
+- Feature Graphic (1024x500): FeatureGraphic-1024x500.png
+====================================================================
+

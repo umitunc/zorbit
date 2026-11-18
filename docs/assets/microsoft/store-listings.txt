@@ -1,0 +1,122 @@
+====================================================================
+ZORBIT - MICROSOFT STORE LISTINGS (GEO & ASO / SEO UYUMLU)
+====================================================================
+Product ID      : 9N2DM5KZWWJH
+Package Name    : TruncgilTeknoloji.Zorbit
+Publisher       : Truncgil Teknoloji
+Web / Support   : https://zorbit.truncgil.com/ | info@truncgil.com
+Category        : Games > Action & adventure (Subcategory: Arcade)
+====================================================================
+
+--------------------------------------------------------------------
+1. TÜRKÇE (tr-TR) - STORE LISTING
+--------------------------------------------------------------------
+
+[Product Name]
+Zorbit
+
+[Short Description] (Kısa Açıklama)
+Dönen gezegenlerin yörüngesinden roketini fırlat, yıldızları topla ve Haftanın Zorbitleri liderlik tablosunda zirveye çık!
+
+[Description] (Tam Açıklama - GEO & SEO Optimize)
+Zorbit nedir?
+Zorbit, dönen gezegenlerin yörüngesinde dönen roketini doğru zamanlamayla bir sonraki gezegene fırlatarak ilerlediğin, hızlı tempolu ve refleks odaklı bir 2D uzay arcade oyunudur.
+
+Nasıl oynanır?
+Roketin gezegenin yörüngesinde sürekli döner. Tek bir dokunuş, fare tıklaması veya Space / Enter / Yukarı Ok tuşuyla roketini ateşle ve bir sonraki gezegenin yörüngesine iniş yap. Zamanlamanı iyi ayarla; boşluğa fırlarsan oyun biter.
+
+Öne Çıkan Özellikler:
+• Tek Tuşla Akıcı Oynanış: Hem dokunmatik ekranlarda hem klavye ve fareyle (Space, Enter, Tab, Yukarı Ok) anında tepki veren kontrol.
+• Dinamik Zorluk Sistemi: İlerledikçe hızlanan gezegen dönüşleri ve roket hızıyla her turda artan heyecan.
+• Ödüller ve Engeller: Yörüngelerde dönen +3 puanlık altın yıldızları topla, -3 puanlık kırmızı engellerden kaçın.
+• Haftanın Zorbitleri & Önceki Haftalar: Benzersiz oyuncu adını belirle, canlı haftalık liderlik tablosunda diğer oyuncularla yarış ve geçmiş haftaların şampiyonları arasında yerini al.
+• WebGL GPU Performansı: PixiJS WebGL motoruyla akıcı kare hızı, dinamik kamera yakınlaşması ve parçacık patlamaları.
+• Sınırsız Yörünge Stratejisi: Doğru açıyı yakalayana kadar yörüngede istediğin kadar dön, acele etmeden en güvenli atışı yap.
+
+Kimler için ideal?
+Kısa molalarda hızlıca oynanabilen, refleks ve zamanlama becerisini test eden uzay oyunları, yörünge oyunları ve arcade yüksek skor yarışlarını seven tüm oyuncular için tasarlandı.
+
+[What's New in This Version] (v2.0.5)
+• PixiJS WebGL2 tabanlı yüksek performanslı grafik motoruna geçildi.
+• Haftanın Zorbitleri canlı liderlik tablosu, Önceki Haftalar arşivi ve benzersiz oyuncu adı sistemi eklendi.
+• Açılış animasyonu, skor tablosu geçiş efektleri ve hızlı yeniden başlatma deneyimi iyileştirildi.
+
+[Product Features] (Özellik Maddeleri - Store Alanı)
+- Tek dokunuş veya Space/Enter ile anında roket fırlatma mekaniği
+- Haftanın Zorbitleri canlı liderlik tablosu ve Önceki Haftalar arşivi
+- Benzersiz oyuncu adı belirleme ve anlık skor kaydı
+- +3 puanlık bonus yıldızlar ve -3 puanlık dönen engeller
+- Dinamik kamera takibi, parçacık efektleri ve ses kontrolü
+- WebGL GPU hızlandırmalı akıcı 60 FPS arcade deneyimi
+
+[Search Terms / Keywords] (En fazla 7 terim)
+zorbit
+uzay oyunu
+roket oyunu
+arcade oyun
+yörünge oyunu
+refleks oyunu
+yüksek skor
+
+
+--------------------------------------------------------------------
+2. ENGLISH (en-US) - STORE LISTING
+--------------------------------------------------------------------
+
+[Product Name]
+Zorbit
+
+[Short Description]
+Launch your rocket from spinning planet orbits, collect stars, and climb the Weekly Zorbits leaderboard!
+
+[Description] (Full Description - GEO & SEO Optimized)
+What is Zorbit?
+Zorbit is a fast-paced 2D space arcade game where you launch a rocket from the orbit of spinning planets and land safely on the next planet with precise timing.
+
+How do you play Zorbit?
+Your rocket continuously orbits around the current planet. Tap, click, or press Space / Enter / Up Arrow at the right moment to fire your rocket straight toward the next planet. Collect +3 bonus stars along the way and avoid -3 spinning hazards.
+
+Key Features:
+• One-Tap Arcade Controls: Instant response with mouse, touch, or keyboard (Space, Enter, Tab, Up Arrow).
+• Dynamic Difficulty Progression: Planet rotation speeds and rocket velocity scale up as your score climbs.
+• Bonus Stars & Hazards: Grab +3 point stars in orbit while dodging -3 rotating obstacles.
+• Weekly Zorbits Leaderboard: Claim your unique player handle, compete on the live weekly leaderboard, and view past weekly champions.
+• Smooth WebGL Performance: Powered by PixiJS WebGL rendering with dynamic camera zoom, starfields, and particle bursts.
+• Unlimited Orbit Patience: Orbit as long as you need to line up the perfect shot.
+
+Perfect for fans of quick-session space arcade games, timing challenges, and global high-score leaderboards.
+
+[What's New in This Version] (v2.0.5)
+• Upgraded rendering engine to PixiJS WebGL for smoother 60 FPS visuals.
+• Added Weekly Zorbits live leaderboard, Past Weeks archive, and unique player usernames.
+• Added animated transitions, faster retry flow, and keyboard shortcuts.
+
+[Product Features]
+- One-tap or Space/Enter rocket launch between spinning planets
+- Live Weekly Zorbits leaderboard and Past Weeks champions archive
+- Unique player username registration and real-time score tracking
+- +3 bonus stars and -3 rotating orbit obstacles
+- Dynamic camera zoom, particle explosions, and mute toggle
+- Hardware-accelerated WebGL space arcade graphics
+
+[Search Terms / Keywords] (Max 7 terms)
+zorbit
+space arcade
+rocket game
+orbit game
+timing game
+high score
+one tap game
+
+--------------------------------------------------------------------
+3. EK STORE BİLGİLERİ (PARTNER CENTER)
+--------------------------------------------------------------------
+Copyright           : © 2026 Truncgil Teknoloji
+Website             : https://zorbit.truncgil.com/
+Support Contact     : info@truncgil.com
+Privacy Policy URL  : https://zorbit.truncgil.com/
+Visual Assets Path  : docs/assets/microsoft/
+  - Store Icon      : StoreIcon-300x300.png (300x300)
+  - Promotional     : StoreHero-1920x1080.png (1920x1080)
+====================================================================
+
