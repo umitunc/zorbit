@@ -48,10 +48,30 @@ function computeNextVersion(current, kind) {
   if (/^\d+\.\d+\.\d+$/.test(kind)) {
     return kind;
   }
-  const [maj, min, pat] = current.split('.').map((n) => Number.parseInt(n, 10));
-  if (kind === 'major') return `${maj + 1}.0.0`;
-  if (kind === 'minor') return `${maj}.${min + 1}.0`;
-  if (kind === 'patch') return `${maj}.${min}.${pat + 1}`;
+  let [maj, min, pat] = current.split('.').map((n) => Number.parseInt(n, 10));
+  if (kind === 'major') {
+    return `${maj + 1}.0.0`;
+  }
+  if (kind === 'minor') {
+    min += 1;
+    if (min >= 10) {
+      maj += Math.floor(min / 10);
+      min %= 10;
+    }
+    return `${maj}.${min}.0`;
+  }
+  if (kind === 'patch') {
+    pat += 1;
+    if (pat >= 10) {
+      min += Math.floor(pat / 10);
+      pat %= 10;
+    }
+    if (min >= 10) {
+      maj += Math.floor(min / 10);
+      min %= 10;
+    }
+    return `${maj}.${min}.${pat}`;
+  }
   throw new Error(`Invalid version bump argument: ${kind}. Use patch | minor | major | X.Y.Z`);
 }
 
@@ -130,6 +150,9 @@ function main() {
   }
   if (existsSync(path.join(ROOT, 'src-tauri', 'tauri.conf.json'))) {
     run('git add src-tauri/tauri.conf.json');
+  }
+  if (existsSync(path.join(ROOT, 'windows', 'AppxManifest.xml'))) {
+    run('git add windows/AppxManifest.xml');
   }
   runArgs('git', ['commit', '-m', `chore(release): ${tagName} (build ${nextCode})`]);
   runArgs('git', ['tag', '-a', tagName, '-m', `Release ${tagName} (build ${nextCode})`]);
@@ -219,7 +242,7 @@ function main() {
   } else if (existsSync(path.join(ROOT, 'src-tauri'))) {
     run('npm run tauri build');
   } else if (existsSync(path.join(ROOT, 'windows', 'AppxManifest.xml'))) {
-    run('powershell -ExecutionPolicy Bypass -File scripts/build-msix.ps1');
+    run('powershell -ExecutionPolicy Bypass -File scripts/build-msix.ps1 -SkipWebBuild');
   } else {
     console.log('Skipped: src-tauri/, windows/AppxManifest.xml or WINDOWS_MSIX_CMD not configured');
   }

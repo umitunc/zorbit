@@ -1,3 +1,7 @@
+param(
+  [switch]$SkipWebBuild
+)
+
 $ErrorActionPreference = 'Stop'
 
 $Root = Split-Path -Parent $PSScriptRoot
@@ -14,10 +18,38 @@ if (-not $MakeAppx) {
   throw "makeappx.exe not found under Windows Kits 10 SDK."
 }
 
+Push-Location $Root
+try {
+  if (-not $SkipWebBuild) {
+    Write-Host "Building web bundle (npm run build)..."
+    npm run build
+    if ($LASTEXITCODE -ne 0) {
+      throw "npm run build failed with exit code $LASTEXITCODE"
+    }
+  }
+
+  Write-Host "Packaging Electron app (win-unpacked)..."
+  npx electron-builder --win dir
+  if ($LASTEXITCODE -ne 0) {
+    throw "electron-builder --win dir failed with exit code $LASTEXITCODE"
+  }
+} finally {
+  Pop-Location
+}
+
+$ElectronUnpacked = Join-Path $Root 'build\electron\win-unpacked'
+if (-not (Test-Path (Join-Path $ElectronUnpacked 'Zorbit.exe'))) {
+  throw "Electron executable not found at $ElectronUnpacked\Zorbit.exe"
+}
+
 $StageDir = Join-Path $Root 'build\msix'
+$AppDest = Join-Path $StageDir 'app'
 $AssetsDest = Join-Path $StageDir 'Assets'
 if (Test-Path $StageDir) { Remove-Item -Recurse -Force $StageDir }
+New-Item -ItemType Directory -Force -Path $AppDest | Out-Null
 New-Item -ItemType Directory -Force -Path $AssetsDest | Out-Null
+
+Copy-Item (Join-Path $ElectronUnpacked '*') -Destination $AppDest -Recurse -Force
 
 $ManifestSrc = Join-Path $Root 'windows\AppxManifest.xml'
 $Utf8NoBom = New-Object System.Text.UTF8Encoding($false)
@@ -36,4 +68,3 @@ if ($LASTEXITCODE -ne 0) {
 }
 
 Write-Host "MSIX created: $OutMsix"
-

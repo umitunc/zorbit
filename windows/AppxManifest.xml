@@ -17,7 +17,7 @@
   </Properties>
 
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.19041.0" MaxVersionTested="10.0.26100.0" />
   </Dependencies>
 
   <Resources>
@@ -26,7 +26,7 @@
   </Resources>
 
   <Applications>
-    <Application Id="App" StartPage="https://zorbit.truncgil.com/">
+    <Application Id="App" Executable="app\Zorbit.exe" EntryPoint="Windows.FullTrustApplication">
       <uap:VisualElements
         DisplayName="Zorbit"
         Description="Dönen gezegenlerin yörüngesinden roketi doğru zamanlamayla fırlat!"
@@ -36,13 +36,11 @@
         <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" />
         <uap:SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#070913" />
       </uap:VisualElements>
-      <uap:ApplicationContentUriRules>
-        <uap:Rule Match="https://zorbit.truncgil.com/*" Type="include" WindowsRuntimeAccess="none" />
-      </uap:ApplicationContentUriRules>
     </Application>
   </Applications>
 
   <Capabilities>
     <Capability Name="internetClient" />
+    <rescap:Capability Name="runFullTrust" />
   </Capabilities>
 </Package>
