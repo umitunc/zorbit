@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, net, protocol, screen, shell } = require('electron');
+const { app, BrowserWindow, Menu, net, protocol, screen, session, shell } = require('electron');
 const fs = require('node:fs');
 const path = require('node:path');
 const { pathToFileURL } = require('node:url');
@@ -87,6 +87,26 @@ function createMainWindow() {
 
 app.whenReady().then(() => {
   Menu.setApplicationMenu(null);
+  session.defaultSession.webRequest.onBeforeSendHeaders(
+    { urls: ['https://zorbit.truncgil.com/api/*'] },
+    (details, callback) => {
+      details.requestHeaders.Origin = 'https://zorbit.truncgil.com';
+      callback({ requestHeaders: details.requestHeaders });
+    }
+  );
+  session.defaultSession.webRequest.onHeadersReceived(
+    { urls: ['https://zorbit.truncgil.com/api/*'] },
+    (details, callback) => {
+      const headers = { ...(details.responseHeaders ?? {}) };
+      for (const key of Object.keys(headers)) {
+        if (key.toLowerCase() === 'access-control-allow-origin') {
+          delete headers[key];
+        }
+      }
+      headers['access-control-allow-origin'] = ['*'];
+      callback({ responseHeaders: headers });
+    }
+  );
   registerAppProtocol();
   createMainWindow();
 

@@ -50,8 +50,9 @@ await app.register(cors, {
     'https://zorbit.truncgil.com',
     'https://zorbit.truncgil.com.tr',
     'capacitor://localhost',
-    'http://localhost',
-    'http://localhost:5173',
+    'app://zorbit',
+    /^https?:\/\/localhost(:\d+)?$/,
+    /^https?:\/\/127\.0\.0\.1(:\d+)?$/,
   ],
 });
 
