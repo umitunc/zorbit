@@ -67,6 +67,9 @@ export class UIManager {
     this.bindEvents();
     this.syncSoundButton();
     this.syncPlayerName();
+    void this.leaderboard.ensureUniqueDefaultName().then(() => {
+      this.syncPlayerName();
+    });
     const versionEl = document.getElementById('app-version');
     if (versionEl) {
       versionEl.textContent = `v${AppConfig.VERSION} (${AppConfig.VERSION_CODE})`;

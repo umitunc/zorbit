@@ -27,6 +27,7 @@ async function bootstrap(): Promise<void> {
   const input = new BrowserInputProvider(canvas);
   const scoreRepository = new LocalStorageScoreRepository();
   const leaderboard = new LeaderboardService();
+  void leaderboard.syncPendingScore();
 
   let engine: GameEngine;
   const ui = new UIManager(audio, leaderboard, () => {

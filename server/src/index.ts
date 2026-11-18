@@ -117,6 +117,54 @@ app.post<{ Body: { playerId?: string; username?: string; platform?: string } }>(
   }
 );
 
+app.post<{ Body: { playerId?: string; baseName?: string; platform?: string } }>(
+  '/api/players/assign-default',
+  async (request, reply) => {
+    const playerId = request.body?.playerId?.trim();
+    const rawBase = request.body?.baseName?.trim() || 'UzayPilotu';
+    const platform = request.body?.platform?.trim() || 'web';
+
+    if (!playerId || playerId.length < 4 || playerId.length > 80) {
+      return reply.code(400).send({ error: 'Invalid playerId' });
+    }
+
+    const existingPlayer = await pool.query<{ username: string }>(
+      'SELECT username FROM players WHERE id = $1',
+      [playerId]
+    );
+    if (existingPlayer.rows.length > 0) {
+      return { ok: true, username: existingPlayer.rows[0].username };
+    }
+
+    const baseClean = USERNAME_REGEX.test(rawBase) ? rawBase.slice(0, 15) : 'UzayPilotu';
+    let candidate = baseClean;
+    let seq = 1;
+
+    while (seq < 10000) {
+      const taken = await pool.query(
+        'SELECT 1 FROM players WHERE username_lower = $1',
+        [candidate.toLowerCase()]
+      );
+      if (taken.rows.length === 0) {
+        await pool.query(
+          `
+            INSERT INTO players (id, username, username_lower, platform)
+            VALUES ($1, $2, $3, $4)
+            ON CONFLICT (id) DO NOTHING
+          `,
+          [playerId, candidate, candidate.toLowerCase(), platform]
+        );
+        return { ok: true, username: candidate };
+      }
+      seq++;
+      const suffix = String(seq);
+      candidate = `${baseClean.slice(0, 18 - suffix.length)}${suffix}`;
+    }
+
+    return reply.code(409).send({ error: 'Benzersiz isim üretilemedi.' });
+  }
+);
+
 app.post<{
   Body: {
     playerId?: string;
@@ -236,6 +284,63 @@ app.post<{
   }
 
   return { ok: true, weekId, score: cleanScore, surpassedCount };
+});
+
+app.post<{
+  Body: {
+    playerId?: string;
+    username?: string;
+    score?: number;
+    weekId?: string;
+    durationMs?: number;
+    appVersion?: string;
+  };
+}>('/api/scores/sync', async (request, reply) => {
+  const { playerId, username, score, weekId, durationMs, appVersion } = request.body ?? {};
+  if (!playerId || typeof score !== 'number' || !Number.isFinite(score) || score <= 0 || score > 50000) {
+    return reply.code(400).send({ error: 'Geçersiz offline skor verisi.' });
+  }
+
+  const cleanScore = Math.floor(score);
+  const targetWeek = weekId && /^\d{4}-W\d{2}$/.test(weekId) ? weekId : getIsoWeekId();
+  const minPlausibleMs = Math.max(400, cleanScore * 120);
+  const cleanDuration = typeof durationMs === 'number' && durationMs >= minPlausibleMs ? Math.floor(durationMs) : minPlausibleMs;
+
+  await ensurePlayer(playerId, username);
+
+  await pool.query(
+    `
+      UPDATE players
+      SET best_score = GREATEST(best_score, $2),
+          updated_at = NOW()
+      WHERE id = $1
+    `,
+    [playerId, cleanScore]
+  );
+
+  await pool.query(
+    `
+      INSERT INTO weekly_scores (week_id, player_id, score)
+      VALUES ($1, $2, $3)
+      ON CONFLICT (week_id, player_id) DO UPDATE
+        SET score = GREATEST(weekly_scores.score, EXCLUDED.score),
+            updated_at = CASE
+              WHEN EXCLUDED.score > weekly_scores.score THEN NOW()
+              ELSE weekly_scores.updated_at
+            END
+    `,
+    [targetWeek, playerId, cleanScore]
+  );
+
+  await pool.query(
+    `
+      INSERT INTO score_history (player_id, week_id, score, duration_ms, app_version)
+      VALUES ($1, $2, $3, $4, $5)
+    `,
+    [playerId, targetWeek, cleanScore, cleanDuration, appVersion ?? null]
+  );
+
+  return { ok: true, weekId: targetWeek, score: cleanScore, synced: true };
 });
 
 app.get<{ Querystring: { weekId?: string; playerId?: string } }>(
